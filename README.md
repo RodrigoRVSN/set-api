@@ -1,4 +1,4 @@
-# This project is a social media with an anime thematic
+# This project is a API for a university project
 
 # 🔨 Technologies
 
@@ -8,9 +8,8 @@
 - Passport
 - Bcrypt
 - JWT auth guard
-- PlanetScale (deploy database)
-- Railway (deploy node server)
-- [Lucidchart](https://lucid.app/lucidchart/9799e13c-970b-4717-ab41-9beed8a506f6/edit?viewport_loc=-253%2C-69%2C943%2C1080%2C0_0&invitationId=inv_acb285fa-cfd7-42f5-8a84-5ca1b478681d#) (model the database architecture)
+- Docker
+- [TO REFINE] Deploy of node and database
 
 ___
 
@@ -18,6 +17,12 @@ ___
 
 ```bash
 $ npm install
+```
+
+## Generate a local MYSQL database with Docker (don't forget to add the database URL in .env file)
+
+```bash
+$ docker-compose up
 ```
 
 ## Running the app
