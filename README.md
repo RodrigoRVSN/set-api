@@ -9,7 +9,9 @@
 - Bcrypt
 - JWT auth guard
 - Docker
-- [TO REFINE] Deploy of node and database
+- Planetscale (deploy database)
+- Railway (deploy node)
+- Swagger UI (documentation)
 
 ___
 
