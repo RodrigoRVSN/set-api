@@ -6,4 +6,8 @@ export interface IUser {
   role: Role;
 }
 
-export type Role = 'ADMIN' | 'TRUSTEE' | 'VISITOR';
+export enum Role {
+  ADMIN = 'ADMIN',
+  TRUSTEE = 'TRUSTEE',
+  VISITOR = 'VISITOR',
+}

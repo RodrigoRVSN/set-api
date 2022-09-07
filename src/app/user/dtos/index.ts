@@ -1,2 +1,2 @@
 export * from './CreateUserDto';
-export * from './ValidateEmail';
+export * from './ValidateUserDto';

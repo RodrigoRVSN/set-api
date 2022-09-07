@@ -6,7 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { compareHash } from 'src/core/utils/auth/crypto';
-import { ValidateUser } from '../dtos/ValidateUser';
+import { ValidateUserDto } from '../dtos';
 import { AuthService } from '../services/auth.service';
 
 @Controller('user')
@@ -14,7 +14,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  async makeLogin(@Body() validateUser: ValidateUser) {
+  async makeLogin(@Body() validateUser: ValidateUserDto) {
     const user = await this.authService.findByEmail(validateUser.email);
 
     if (!user) {
