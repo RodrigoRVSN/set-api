@@ -16,6 +16,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   name: string;
 
+  @ApiProperty({ enum: Role })
   @IsNotEmpty()
   role: Role;
 }

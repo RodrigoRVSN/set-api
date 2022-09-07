@@ -5,8 +5,6 @@ import {
   Get,
   Post,
 } from '@nestjs/common';
-import { ApiQuery } from '@nestjs/swagger';
-import { Role } from 'src/core/types/IUser';
 import { CreateUserDto } from '../dtos';
 import { UserService } from '../services/user.service';
 
@@ -19,7 +17,6 @@ export class UserController {
     return this.appService.getUsers();
   }
 
-  @ApiQuery({ name: 'role', enum: Role })
   @Post('register')
   async createUser(@Body() createUserDto: CreateUserDto) {
     const foundByEmail = await this.appService.findByEmail(createUserDto.email);
