@@ -9,6 +9,12 @@ export class CondominiumService {
   getSyndicates() {
     return this.Prisma.user.findMany({
       where: { role: { equals: Role.SYNDICATE } },
+      select: {
+        name: true,
+        email: true,
+        phone: true,
+        role: true,
+      },
     });
   }
 }
