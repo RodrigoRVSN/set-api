@@ -20,7 +20,7 @@ model User {
   id          String        @id @default(uuid())
   name        String
   email       String        @unique
-  phone       String?
+  phone       String
   password    String
   role        Role
   condominium Condominium[]
