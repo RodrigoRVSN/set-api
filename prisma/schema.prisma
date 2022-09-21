@@ -17,10 +17,10 @@ enum Role {
 }
 
 model User {
-  id       String  @id @default(uuid())
+  id       String @id @default(uuid())
   name     String
-  email    String  @unique
-  phone    String?
+  email    String @unique
+  phone    String
   password String
   role     Role
 }
