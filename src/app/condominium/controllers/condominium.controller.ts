@@ -2,7 +2,9 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
 } from '@nestjs/common';
 import { CreateCondominiumDto } from '../dtos';
@@ -28,6 +30,19 @@ export class CondominiumController {
     }
 
     return this.appService.createCondominium(createCondominiumDto);
+  }
+
+  @Delete('delete/:id')
+  async removeCondominium(@Param('id') condominiumId: string) {
+    const condominiumExists = await this.appService.findCondominiumById(
+      condominiumId,
+    );
+
+    if (!condominiumExists) {
+      throw new BadRequestException('This condominium doesnt exists');
+    }
+
+    return this.appService.deleteCondominium(condominiumId);
   }
 
   @Get('syndicates')

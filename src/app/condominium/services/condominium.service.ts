@@ -15,6 +15,20 @@ export class CondominiumService {
     });
   }
 
+  findCondominiumById(condominiumId: string) {
+    return this.Prisma.condominium.findFirst({
+      where: { id: condominiumId },
+    });
+  }
+
+  createCondominium(createCondominiumDto: CreateCondominiumDto) {
+    return this.Prisma.condominium.create({ data: createCondominiumDto });
+  }
+
+  deleteCondominium(condominiumId: string) {
+    return this.Prisma.condominium.delete({ where: { id: condominiumId } });
+  }
+
   getSyndicates() {
     return this.Prisma.user.findMany({
       where: { role: { equals: Role.SYNDICATE } },
@@ -35,9 +49,5 @@ export class CondominiumService {
         role: Role.SYNDICATE,
       },
     });
-  }
-
-  createCondominium(createCondominiumDto: CreateCondominiumDto) {
-    return this.Prisma.condominium.create({ data: createCondominiumDto });
   }
 }

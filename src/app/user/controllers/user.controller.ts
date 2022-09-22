@@ -2,7 +2,9 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos';
@@ -19,7 +21,9 @@ export class UserController {
 
   @Post('register')
   async createUser(@Body() createUserDto: CreateUserDto) {
-    const foundByEmail = await this.appService.findByEmail(createUserDto.email);
+    const foundByEmail = await this.appService.findUserByEmail(
+      createUserDto.email,
+    );
 
     if (!!foundByEmail) {
       throw new BadRequestException('This email already exists!');
@@ -27,5 +31,16 @@ export class UserController {
 
     await this.appService.createUser(createUserDto);
     return 'User has been created!';
+  }
+
+  @Delete('delete/:id')
+  async removeUser(@Param('id') userId: string) {
+    const userExists = await this.appService.findUserById(userId);
+
+    if (!userExists) {
+      throw new BadRequestException('This user doesnt exists');
+    }
+
+    return this.appService.deleteUser(userId);
   }
 }
