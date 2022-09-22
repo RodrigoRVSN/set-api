@@ -17,10 +17,19 @@ enum Role {
 }
 
 model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  phone    String
-  password String
-  role     Role
+  id          String        @id @default(uuid())
+  name        String
+  email       String        @unique
+  phone       String
+  password    String
+  role        Role
+  condominium Condominium[]
+}
+
+model Condominium {
+  id          String @id @default(uuid())
+  name        String
+  address     String
+  syndicateId String
+  syndicate   User?  @relation(fields: [syndicateId], references: [id])
 }

@@ -8,7 +8,11 @@ export class UserService {
   constructor(private Prisma: PrismaService) {}
 
   getUsers() {
-    return this.Prisma.user.findMany();
+    return this.Prisma.user.findMany({
+      include: {
+        condominium: true,
+      },
+    });
   }
 
   findByEmail(email: string) {
