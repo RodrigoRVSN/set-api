@@ -12,14 +12,15 @@ datasource db {
 
 enum Role {
   ADMIN
-  TRUSTEE
-  VISITOR
+  SYNDICATE
+  RESIDENT
 }
 
 model User {
   id       String @id @default(uuid())
   name     String
   email    String @unique
+  phone    String
   password String
   role     Role
 }

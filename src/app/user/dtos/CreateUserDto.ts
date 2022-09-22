@@ -14,6 +14,10 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsNotEmpty()
+  phone: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
   name: string;
 
   @ApiProperty({ enum: Role })
