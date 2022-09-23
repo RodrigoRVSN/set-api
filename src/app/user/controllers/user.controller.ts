@@ -6,7 +6,9 @@ import {
   Get,
   Param,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AdminGuard } from 'src/app/auth/role.guard';
 import { CreateUserDto } from '../dtos';
 import { UserService } from '../services/user.service';
 
@@ -34,6 +36,7 @@ export class UserController {
   }
 
   @Delete('delete/:id')
+  @UseGuards(AdminGuard)
   async removeUser(@Param('id') userId: string) {
     const userExists = await this.appService.findUserById(userId);
 

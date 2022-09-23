@@ -6,7 +6,9 @@ import {
   Get,
   Param,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AdminGuard } from 'src/app/auth/role.guard';
 import { CreateCondominiumDto } from '../dtos';
 import { CondominiumService } from '../services';
 
@@ -32,6 +34,7 @@ export class CondominiumController {
     return this.appService.createCondominium(createCondominiumDto);
   }
 
+  @UseGuards(AdminGuard)
   @Delete('delete/:id')
   async removeCondominium(@Param('id') condominiumId: string) {
     const condominiumExists = await this.appService.findCondominiumById(
