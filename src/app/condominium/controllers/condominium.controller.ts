@@ -21,6 +21,7 @@ export class CondominiumController {
     return this.appService.getCondominiums();
   }
 
+  @UseGuards(AdminGuard)
   @Post('create')
   async createCondominium(@Body() createCondominiumDto: CreateCondominiumDto) {
     const syndicateExists = await this.appService.findSyndicateById(
