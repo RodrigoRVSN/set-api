@@ -35,7 +35,7 @@ export class CondominiumService {
   ) {
     return this.Prisma.condominium.update({
       where: { id: condominiumId },
-      data: { ...updateCondominiumDto },
+      data: updateCondominiumDto,
     });
   }
 
