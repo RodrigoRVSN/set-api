@@ -12,10 +12,14 @@ import {
 import { AdminGuard } from 'src/app/auth/role.guard';
 import { CreateCondominiumDto, UpdateCondominiumDto } from '../dtos';
 import { CondominiumService } from '../services';
+import { SyndicatesService } from '../services/syndicates.service';
 
 @Controller('condominium')
 export class CondominiumController {
-  constructor(private readonly appService: CondominiumService) {}
+  constructor(
+    private readonly appService: CondominiumService,
+    private readonly syndicatesService: SyndicatesService,
+  ) {}
 
   @Get()
   getCondominiums() {
@@ -25,7 +29,7 @@ export class CondominiumController {
   @UseGuards(AdminGuard)
   @Post('create')
   async createCondominium(@Body() createCondominiumDto: CreateCondominiumDto) {
-    const syndicateExists = await this.appService.findSyndicateById(
+    const syndicateExists = await this.syndicatesService.findSyndicateById(
       createCondominiumDto.syndicateId,
     );
 
@@ -68,10 +72,5 @@ export class CondominiumController {
       condominiumId,
       updateCondominiumDto,
     );
-  }
-
-  @Get('syndicates')
-  getSyndicates() {
-    return this.appService.getSyndicates();
   }
 }
