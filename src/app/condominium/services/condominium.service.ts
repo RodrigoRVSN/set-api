@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/database/db.service';
 import { Role } from 'src/core/types/IUser';
-import { CreateCondominiumDto } from '../dtos';
+import { CreateCondominiumDto, UpdateCondominiumDto } from '../dtos';
 
 @Injectable()
 export class CondominiumService {
@@ -27,6 +27,16 @@ export class CondominiumService {
 
   deleteCondominium(condominiumId: string) {
     return this.Prisma.condominium.delete({ where: { id: condominiumId } });
+  }
+
+  updateCondominium(
+    condominiumId: string,
+    updateCondominiumDto: UpdateCondominiumDto,
+  ) {
+    return this.Prisma.condominium.update({
+      where: { id: condominiumId },
+      data: { ...updateCondominiumDto },
+    });
   }
 
   getSyndicates() {

@@ -6,10 +6,11 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/app/auth/role.guard';
-import { CreateCondominiumDto } from '../dtos';
+import { CreateCondominiumDto, UpdateCondominiumDto } from '../dtos';
 import { CondominiumService } from '../services';
 
 @Controller('condominium')
@@ -47,6 +48,26 @@ export class CondominiumController {
     }
 
     return this.appService.deleteCondominium(condominiumId);
+  }
+
+  @UseGuards(AdminGuard)
+  @Put('update/:id')
+  async updateCondominium(
+    @Param('id') condominiumId: string,
+    @Body() updateCondominiumDto: UpdateCondominiumDto,
+  ) {
+    const condominiumExists = await this.appService.findCondominiumById(
+      condominiumId,
+    );
+
+    if (!condominiumExists) {
+      throw new BadRequestException('This condominium doesnt exists');
+    }
+
+    return this.appService.updateCondominium(
+      condominiumId,
+      updateCondominiumDto,
+    );
   }
 
   @Get('syndicates')
