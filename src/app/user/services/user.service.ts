@@ -15,7 +15,11 @@ export class UserService {
     });
   }
 
-  findByEmail(email: string) {
+  findUserById(userId: string) {
+    return this.Prisma.user.findFirst({ where: { id: { equals: userId } } });
+  }
+
+  findUserByEmail(email: string) {
     return this.Prisma.user.findFirst({ where: { email: { equals: email } } });
   }
 
@@ -23,5 +27,9 @@ export class UserService {
     const password = await encryptPassword(createUserDto.password);
 
     return this.Prisma.user.create({ data: { ...createUserDto, password } });
+  }
+
+  deleteUser(userId: string) {
+    return this.Prisma.user.delete({ where: { id: userId } });
   }
 }

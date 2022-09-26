@@ -31,5 +31,5 @@ model Condominium {
   name        String
   address     String
   syndicateId String
-  syndicate   User?  @relation(fields: [syndicateId], references: [id])
+  syndicate   User?  @relation(fields: [syndicateId], references: [id], onDelete: SetNull)
 }

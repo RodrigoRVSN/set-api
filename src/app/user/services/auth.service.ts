@@ -14,13 +14,14 @@ export class AuthService {
     return this.Prisma.user.findFirst({ where: { email: { equals: email } } });
   }
 
-  async login(user: User) {
-    const payload = { email: user.email, sub: user.id };
+  async login({ name, id, email, role, phone }: User) {
+    const payload = { email, sub: id, role };
 
     const userData = {
-      name: user.role,
-      email: user.email,
-      role: user.role,
+      name,
+      email,
+      role,
+      phone,
     };
 
     return {

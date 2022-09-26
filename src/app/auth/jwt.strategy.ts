@@ -6,6 +6,7 @@ import { jwtConstants } from 'src/core/utils/auth/constants';
 interface IPayload {
   sub: string;
   email: string;
+  role: string;
 }
 
 @Injectable()
@@ -18,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: IPayload) {
-    return { userId: payload.sub, email: payload.email };
+  async validate({ sub, email, role }: IPayload) {
+    return { userId: sub, email, role };
   }
 }

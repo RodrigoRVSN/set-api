@@ -2,53 +2,61 @@
 
 # 🔨 Technologies
 
-- Nestjs (Nodejs framework)
-- PrismaORM
-- MySQL database
-- Passport
-- Bcrypt
-- JWT auth guard
-- Docker
-- Planetscale (deploy database)
-- Railway (deploy node)
-- Swagger UI (documentation)
+- Nestjs - `Nodejs framework`
+- PrismaORM - `ORM to manipulate the database`
+- MySQL - `database`
+- Passport - `Implement JWT strategy`
+- Bcrypt - `Encrypt password`
+- JWT auth guard - `JWT Authentication`
+- Docker - `run local MySQL database`
+- Planetscale - `deploy the database`
+- Railway - `deploy the node server`
+- Swagger UI - `auto generated documentation`
 
 ___
 
 ## Installation
 
 ```bash
-$ npm install
+$ yarn
 ```
 
-## Generate a local MYSQL database with Docker (don't forget to add the database URL in .env file)
+## Generate a local MYSQL database with Docker (don't forget to add the database URL in `.env` file)
 
 ```bash
 $ docker-compose up
+```
+
+## Generate Prisma migration in your database
+
+```bash
+$ yarn pm
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
+
+### See others commands in `package.json` scripts
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn test:cov
 ```
