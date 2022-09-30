@@ -6,15 +6,20 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/app/auth/role.guard';
-import { CreateCondominiumDto } from '../dtos';
+import { CreateCondominiumDto, UpdateCondominiumDto } from '../dtos';
 import { CondominiumService } from '../services';
+import { SyndicatesService } from '../services/syndicates.service';
 
 @Controller('condominium')
 export class CondominiumController {
-  constructor(private readonly appService: CondominiumService) {}
+  constructor(
+    private readonly appService: CondominiumService,
+    private readonly syndicatesService: SyndicatesService,
+  ) {}
 
   @Get()
   getCondominiums() {
@@ -24,7 +29,7 @@ export class CondominiumController {
   @UseGuards(AdminGuard)
   @Post('create')
   async createCondominium(@Body() createCondominiumDto: CreateCondominiumDto) {
-    const syndicateExists = await this.appService.findSyndicateById(
+    const syndicateExists = await this.syndicatesService.findSyndicateById(
       createCondominiumDto.syndicateId,
     );
 
@@ -49,8 +54,23 @@ export class CondominiumController {
     return this.appService.deleteCondominium(condominiumId);
   }
 
-  @Get('syndicates')
-  getSyndicates() {
-    return this.appService.getSyndicates();
+  @UseGuards(AdminGuard)
+  @Put('update/:id')
+  async updateCondominium(
+    @Param('id') condominiumId: string,
+    @Body() updateCondominiumDto: UpdateCondominiumDto,
+  ) {
+    const condominiumExists = await this.appService.findCondominiumById(
+      condominiumId,
+    );
+
+    if (!condominiumExists) {
+      throw new BadRequestException('This condominium doesnt exists');
+    }
+
+    return this.appService.updateCondominium(
+      condominiumId,
+      updateCondominiumDto,
+    );
   }
 }

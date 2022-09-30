@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/database/db.service';
-import { Role } from 'src/core/types/IUser';
-import { CreateCondominiumDto } from '../dtos';
+import { CreateCondominiumDto, UpdateCondominiumDto } from '../dtos';
 
 @Injectable()
 export class CondominiumService {
@@ -29,25 +28,13 @@ export class CondominiumService {
     return this.Prisma.condominium.delete({ where: { id: condominiumId } });
   }
 
-  getSyndicates() {
-    return this.Prisma.user.findMany({
-      where: { role: { equals: Role.SYNDICATE } },
-      select: {
-        name: true,
-        email: true,
-        phone: true,
-        role: true,
-        id: true,
-      },
-    });
-  }
-
-  findSyndicateById(id: string) {
-    return this.Prisma.user.findFirst({
-      where: {
-        id,
-        role: Role.SYNDICATE,
-      },
+  updateCondominium(
+    condominiumId: string,
+    updateCondominiumDto: UpdateCondominiumDto,
+  ) {
+    return this.Prisma.condominium.update({
+      where: { id: condominiumId },
+      data: updateCondominiumDto,
     });
   }
 }

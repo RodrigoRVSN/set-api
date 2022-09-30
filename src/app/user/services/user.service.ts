@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/database/db.service';
 import { encryptPassword } from 'src/core/utils/auth/crypto';
+import { UpdateUserDto } from '../dtos';
 import { CreateUserDto } from '../dtos/CreateUserDto';
 
 @Injectable()
@@ -31,5 +32,12 @@ export class UserService {
 
   deleteUser(userId: string) {
     return this.Prisma.user.delete({ where: { id: userId } });
+  }
+
+  updateUser(userId: string, updateUserDto: UpdateUserDto) {
+    return this.Prisma.user.update({
+      where: { id: userId },
+      data: updateUserDto,
+    });
   }
 }

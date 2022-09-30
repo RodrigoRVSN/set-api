@@ -6,10 +6,11 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/app/auth/role.guard';
-import { CreateUserDto } from '../dtos';
+import { CreateUserDto, UpdateUserDto } from '../dtos';
 import { UserService } from '../services/user.service';
 
 @Controller('user')
@@ -45,5 +46,20 @@ export class UserController {
     }
 
     return this.appService.deleteUser(userId);
+  }
+
+  @Put('update/:id')
+  @UseGuards(AdminGuard)
+  async updateUser(
+    @Param('id') userId: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    const userExists = await this.appService.findUserById(userId);
+
+    if (!userExists) {
+      throw new BadRequestException('This user doesnt exists');
+    }
+
+    return this.appService.updateUser(userId, updateUserDto);
   }
 }
